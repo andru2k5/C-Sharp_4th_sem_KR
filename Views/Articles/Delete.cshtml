@@ -1,0 +1,20 @@
+@model MiniForum.Models.Article
+
+@{
+    ViewData["Title"] = "Видалити статтю";
+}
+
+<h1>Видалити статтю</h1>
+<h3>Ви впевнені, що хочете видалити цю статтю?</h3>
+
+<div>
+    <h4>@Model.Title</h4>
+    <p>@Model.Content</p>
+    <small>Автор: @Model.Author</small>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Видалити" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+</form>

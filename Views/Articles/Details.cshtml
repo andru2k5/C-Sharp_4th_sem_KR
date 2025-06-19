@@ -1,0 +1,20 @@
+@model MiniForum.Models.Article
+
+@{
+    ViewData["Title"] = "Деталі статті";
+}
+
+<div class="container">
+    <div class="article-details-card">
+        <h1>@Model.Title</h1>
+        <h6>Автор: @Model.Author</h6>
+@{
+    string articleContent = Model.Content.Replace("\n", "<br/>");
+}
+        <p>@Html.Raw(articleContent)</p>
+        <small>Опубліковано: @Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")</small>
+    </div>
+    <div class="mt-3"> 
+        <a asp-action="Index" class="btn btn-secondary">Повернутися до списку</a>
+    </div>
+</div>

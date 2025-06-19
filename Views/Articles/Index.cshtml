@@ -1,0 +1,48 @@
+@model IEnumerable<MiniForum.Models.Article>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Усі статті";
+}
+
+<div class="container">
+    <h1 class="page-title">Усі статті</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Створити нову статтю</a>
+    </p>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert-info" role="alert">
+            Поки що немає статей. Будьте першими, хто створить!
+        </div>
+    }
+    else
+    {
+        <div class="article-grid">
+            @foreach (var item in Model)
+            {
+                <div class="article-card">
+                    <div>
+                        <h5>
+                            <a asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
+                        </h5>
+                        <h6>Автор: @item.Author</h6>
+                        <p>@item.Content</p>
+                    </div>
+                    <small>Опубліковано: @item.CreatedDate.ToString("dd.MM.yyyy HH:mm")</small>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="mt-2">
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Видалити</a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
